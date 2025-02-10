@@ -27,7 +27,7 @@ resource "aws_security_group" "web_sg" {
   vpc_id      = aws_vpc.main_vpc.id
 }
 
-resource "aws_instance" "web" {
+resource "aws_instance" "ansys_instance" {
   ami           = var.ami_id
   instance_type = var.instance_type
   subnet_id     = aws_subnet.public_subnet[0].id
@@ -39,18 +39,3 @@ resource "aws_eip" "web_ip" {
   instance = aws_instance.web.id
 }
 
-output "vpc_id" {
-  value = aws_vpc.main_vpc.id
-}
-
-output "public_subnet_ids" {
-  value = aws_subnet.public_subnet[*].id
-}
-
-output "private_subnet_ids" {
-  value = aws_subnet.private_subnet[*].id
-}
-
-output "ec2_public_ip" {
-  value = aws_eip.web_ip.public_ip
-}
